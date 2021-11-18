@@ -69,25 +69,20 @@ function addDeleteButton(_local_storage, taskLi) {
 }
 
 function deleteTask(_local_storage, elem) {
-    //let confirm = window.confirm('Voce tem certeza que deseja excluir esta tarefa?');
-    //if (confirm) {
-    //    elem.parentElement.remove();
+    let confirm = window.confirm('Voce tem certeza que deseja excluir esta tarefa?');
+    if (confirm) {
+        elem.parentElement.remove();
         
-    //} for testing only
+        _local_storage = localStorage.getItem('enderecos');
+        var object = JSON.parse(_local_storage);
+        arrayAddress = object.enderecos;
 
-    //TODO: fazer function
-    //localStorage.removeItem(taskName);
+        let arrayDel = arrayAddress.filter(value => value !== elem.parentElement.id);
 
-    _local_storage = localStorage.getItem('enderecos');
-    var object = JSON.parse(_local_storage);
-    arrayAddress = object.enderecos;
+        object.enderecos = arrayDel;
+        _local_storage = JSON.stringify(object);
+        localStorage.setItem('enderecos', _local_storage);
 
-    console.log(elem.parentElement.id)//
-    let arrayDel = arrayAddress.filter(value => value !== elem.parentElement.id);
-
-    object.enderecos = arrayDel;
-    _local_storage = JSON.stringify(object);
-    localStorage.setItem('enderecos', _local_storage);
-
-    elem.parentElement.remove();
+        elem.parentElement.remove();
+    }
 }
